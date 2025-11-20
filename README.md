@@ -68,7 +68,7 @@ Staff can now start taking orders.
 
 ### 1. Clone the Repository
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/AyushGaikwad05/BillMate-Restaurant-POS-System
 cd billmate
 
 ```
