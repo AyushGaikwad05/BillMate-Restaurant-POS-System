@@ -1,27 +1,33 @@
-// middleware.js
 import { NextResponse } from "next/server";
+import {  NextRequest } from "next/server";
 
 export function middleware(req) {
-  const publicRoutes = ["/login", "/signup"];
+  // Log all cookies for debugging
+ 
+ const token = req.headers.get("authorization")?.replace("Bearer ", "");
 
-  const { pathname } = req.nextUrl;
-  const token = req.cookies.get("accessToken")?.value;
+  const protectedPaths = [
+    "/",
+    "/orders",
+    "/tables",
+    "/menu",
+    "/dashboard"
+  ];
 
-  // allow public pages
-  if (publicRoutes.includes(pathname)) {
-    return NextResponse.next();
-  }
+  
+  const pathname = req.nextUrl.pathname;
 
-  // block private pages if no token
-  if (!token) {
-    return NextResponse.redirect(new URL("/login", req.url));
+  const isProtected = protectedPaths.some(path => {
+    // Use startsWith for subpaths
+    return pathname === path || pathname.startsWith(path + "/");
+  });
+
+  if (isProtected && !token) {
+    const res = NextResponse.redirect(new URL("/signup", req.url));
+    // Prevent caching of this redirect
+    res.headers.set("x-middleware-cache", "no-cache");
+    return res;
   }
 
   return NextResponse.next();
-}
-
-export const config = {
-  matcher: [
-    "/((?!_next|favicon.ico|api).*)",
-  ],
-};
+} 
