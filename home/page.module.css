@@ -1,0 +1,37 @@
+.greetings {
+  display: flex;
+  justify-content: space-between;  /* keeps left and right side apart */
+  align-items: center;              /* vertically center them */
+  color: white;
+  padding: 15px;
+  margin: 15px;
+     /* optional for visibility */
+  
+}
+
+/* Optional styling */
+.left h1 {
+    font-weight: bolder;
+    font-size: x-large;
+  margin: 0;
+}
+
+.right h3 {
+  margin: 0;
+  text-align: right;
+}
+
+#date {
+ font-weight: 900;
+ font-size: x-large;
+}
+
+.card {
+    background-color:#1a1a1a;
+    width: 50%;
+    border-radius: 16px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    color: white;
+}
+

@@ -1,0 +1,17 @@
+.section {
+  display: flex;               /* make them side by side */
+  height: calc(100vh - 80px); 
+  background-color:#1a1a1a; /* take full height minus navbar */
+}
+
+.left-section {
+  flex: 3;                     /* take equal width */
+  background-color: #1a1a1a;
+  width: 90%;
+}
+
+.right-section {
+  flex: 2;
+  background-color: #1a1a1a;
+  margin-left: 10px;
+}
