@@ -1,33 +1,44 @@
 import { NextResponse } from "next/server";
-import {  NextRequest } from "next/server";
 
 export function middleware(req) {
-  // Log all cookies for debugging
- 
- const token = req.headers.get("authorization")?.replace("Bearer ", "");
+  // 1️⃣ Try to read cookie normally
+  let token = req.cookies.get("accessToken")?.value;
+
+  // 2️⃣ Backup method: read raw cookie header
+  if (!token) {
+    const cookieHeader = req.headers.get("cookie");
+    if (cookieHeader) {
+      const match = cookieHeader.match(/accessToken=([^;]+)/);
+      if (match) token = match[1];
+    }
+  }
 
   const protectedPaths = [
     "/",
     "/orders",
     "/tables",
     "/menu",
-    "/dashboard"
+    "/dashboard",
   ];
 
-  
   const pathname = req.nextUrl.pathname;
-
-  const isProtected = protectedPaths.some(path => {
-    // Use startsWith for subpaths
-    return pathname === path || pathname.startsWith(path + "/");
-  });
+  const isProtected = protectedPaths.some(
+    (path) => pathname === path || pathname.startsWith(path + "/")
+  );
 
   if (isProtected && !token) {
-    const res = NextResponse.redirect(new URL("/signup", req.url));
-    // Prevent caching of this redirect
-    res.headers.set("x-middleware-cache", "no-cache");
-    return res;
+    return NextResponse.redirect(new URL("/signup", req.url));
   }
 
   return NextResponse.next();
-} 
+}
+
+export const config = {
+  matcher: [
+    "/",
+    "/orders/:path*",
+    "/tables/:path*",
+    "/menu/:path*",
+    "/dashboard/:path*",
+  ],
+};
