@@ -1,18 +1,6 @@
 import { NextResponse } from "next/server";
 
-export function middleware(req) {
-  // 1️⃣ Try to read cookie normally
-  let token = req.cookies.get("accessToken")?.value;
-
-  // 2️⃣ Backup method: read raw cookie header
-  if (!token) {
-    const cookieHeader = req.headers.get("cookie");
-    if (cookieHeader) {
-      const match = cookieHeader.match(/accessToken=([^;]+)/);
-      if (match) token = match[1];
-    }
-  }
-
+export async function middleware(req) {
   const protectedPaths = [
     "/",
     "/orders",
@@ -26,11 +14,31 @@ export function middleware(req) {
     (path) => pathname === path || pathname.startsWith(path + "/")
   );
 
-  if (isProtected && !token) {
+  if (!isProtected) return NextResponse.next();
+
+  try {
+    // Call backend /verify endpoint to check token
+    const response = await fetch(
+      "https://billmate-pos-backend.onrender.com/api/user/verify",
+      {
+        headers: {
+          cookie: req.headers.get("cookie") || "", // forward cookies to backend
+        },
+        credentials: "include",
+      }
+    );
+
+    if (response.status !== 200) {
+      // Token invalid or missing → redirect to signup
+      return NextResponse.redirect(new URL("/signup", req.url));
+    }
+
+    // Token valid → allow access
+    return NextResponse.next();
+  } catch (err) {
+    // Backend unreachable or error → redirect to signup
     return NextResponse.redirect(new URL("/signup", req.url));
   }
-
-  return NextResponse.next();
 }
 
 export const config = {
