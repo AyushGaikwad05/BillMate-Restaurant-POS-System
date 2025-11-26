@@ -1,9 +1,10 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
+  // 1️⃣ Try to read cookie normally
   let token = req.cookies.get("accessToken")?.value;
 
-  // Backup - raw header
+  // 2️⃣ Backup method: read raw cookie header
   if (!token) {
     const cookieHeader = req.headers.get("cookie");
     if (cookieHeader) {
@@ -21,7 +22,6 @@ export function middleware(req) {
   ];
 
   const pathname = req.nextUrl.pathname;
-
   const isProtected = protectedPaths.some(
     (path) => pathname === path || pathname.startsWith(path + "/")
   );
@@ -33,9 +33,12 @@ export function middleware(req) {
   return NextResponse.next();
 }
 
-// 🔥 THIS IS THE IMPORTANT PART
 export const config = {
   matcher: [
-    "/((?!api|_next/static|_next/image|favicon.ico).*)",
+    "/",
+    "/orders/:path*",
+    "/tables/:path*",
+    "/menu/:path*",
+    "/dashboard/:path*",
   ],
 };
