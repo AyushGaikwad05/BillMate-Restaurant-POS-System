@@ -41,9 +41,6 @@ export default function Dashboard () {
     const tabs = ["Metrics", "Orders", "Payments"];
     return (
         <>
-        <ProtectedRoute>
-
-       
         <Navbar />
          <div className="bg-[#1f1f1f] h-[calc(100vh-5rem)]">
             <div className="container mx-auto flex items-center justify-between py-14 px-6 md:px-4">
@@ -73,7 +70,6 @@ export default function Dashboard () {
           {isTableModalOpen && <Modal setIsTableModalOpen={setIsTableModalOpen}/>} 
           
          </div>
-          </ProtectedRoute>
         </>
     );
 }
