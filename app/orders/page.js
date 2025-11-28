@@ -7,7 +7,7 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from 'react'; 
 import { getOrder } from "@/https";
 import { enqueueSnackbar } from "notistack";
-import ProtectedRoutes from "@/components/auth/ProtectedRoutes";
+
 export default function OrderPage() {
   const [status, setStatus] = useState('all');
   useEffect(()=>{
@@ -29,9 +29,6 @@ export default function OrderPage() {
 
 
   return (
-    <ProtectedRoutes>
-
-   
     <section className="bg-[#1a1a1a] h-[100vh] flex flex-col">
       <Navbar />
 
@@ -100,6 +97,5 @@ export default function OrderPage() {
 
       <BottomNavBar />
     </section>
-     </ProtectedRoutes>
   );
 }

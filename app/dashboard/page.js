@@ -7,7 +7,7 @@ import RecentOrder from "@/components/dashboard/RecentOrder";
 import { act, useState } from "react";
 import Modal from "@/components/dashboard/Modal";
 import Navbar from "@/components/Navbar";
-import ProtectedRoutes from "@/components/auth/ProtectedRoutes";
+
 
 export default function Dashboard () {
 
@@ -41,9 +41,6 @@ export default function Dashboard () {
     const tabs = ["Metrics", "Orders", "Payments"];
     return (
         <>
-         <ProtectedRoutes>
-
-         
         <Navbar />
          <div className="bg-[#1f1f1f] h-[calc(100vh-5rem)]">
             <div className="container mx-auto flex items-center justify-between py-14 px-6 md:px-4">
@@ -73,7 +70,6 @@ export default function Dashboard () {
           {isTableModalOpen && <Modal setIsTableModalOpen={setIsTableModalOpen}/>} 
           
          </div>
-         </ProtectedRoutes>
         </>
     );
 }
