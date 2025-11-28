@@ -6,14 +6,12 @@ export function middleware(req) {
 
   const publicPaths = ["/login"];
 
-  // If trying to access protected route without token
   if (!token && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
-  // If logged in → prevent going back to login
   if (token && pathname === "/login") {
-    return NextResponse.redirect(new URL("/", req.url));
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
@@ -21,11 +19,6 @@ export function middleware(req) {
 
 export const config = {
   matcher: [
-    "/dashboard/:path*",
-    "/orders/:path*",
-    "/menu/:path*",
-    "/tables/:path*",
-    "/",
-    "/login"
+    "/((?!_next|favicon.ico|api|assets).*)"
   ],
 };
