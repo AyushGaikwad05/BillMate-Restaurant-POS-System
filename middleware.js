@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
 
 export function middleware(req) {
-  const pathname = req.nextUrl.pathname;
-
-  // Read token from cookies
   const token = req.cookies.get("accessToken")?.value;
+  const { pathname } = req.nextUrl;
 
-  // If user opens "/" and has no token --> redirect to login
-  if (pathname === "/" && !token) {
+  // Public routes
+  const publicPaths = ["/login"];
+
+  // If user is on a protected page and not logged in
+  if (!token && !publicPaths.includes(pathname)) {
     return NextResponse.redirect(new URL("/login", req.url));
+  }
+
+  // If user is logged in and tries to open login page -> go to dashboard
+  if (token && pathname === "/login") {
+    return NextResponse.redirect(new URL("/dashboard", req.url));
   }
 
   return NextResponse.next();
@@ -16,10 +22,11 @@ export function middleware(req) {
 
 export const config = {
   matcher: [
-    "/",  
-    "/orders/:path*", 
-    "/tables/:path*", 
-    "/menu/:path*", 
-    "/dashboard/:path*"
+    "/",
+    "/dashboard/:path*",
+    "/orders/:path*",
+    "/tables/:path*",
+    "/menu/:path*",
+    "/login"
   ],
 };
