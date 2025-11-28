@@ -7,9 +7,13 @@ import MiniCard from "@/home/MiniCard";
 import { BsCashCoin } from "react-icons/bs";
 import RecentOrder from "@/home/RecentOrder";
 import PopularDishesh from "@/home/PopularDishes";
+import ProtectedRoutes from "@/components/auth/ProtectedRoutes";
 export default function Home() {
   return (
     <>
+    <ProtectedRoutes>
+
+   
       <Navbar />
       <section className={classes.section}>
         <div className={classes["left-section"]}>
@@ -26,6 +30,7 @@ export default function Home() {
         </div>
       </section>
       <BottomNav/>
+       </ProtectedRoutes>
     </>
   );
 }
