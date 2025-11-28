@@ -7,7 +7,7 @@ import RecentOrder from "@/components/dashboard/RecentOrder";
 import { act, useState } from "react";
 import Modal from "@/components/dashboard/Modal";
 import Navbar from "@/components/Navbar";
-import ProtectedRoute from "@/components/auth/ProtectedRoute";
+
 
 export default function Dashboard () {
 
