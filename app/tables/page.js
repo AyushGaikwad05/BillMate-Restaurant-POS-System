@@ -8,7 +8,16 @@ import { tables } from "@/home/index";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { getTables } from "@/https/index";
 import { enqueueSnackbar } from "notistack";
+import useAuthGuard from "@/utils/useAuthGuard";
 export default function Tables() {
+
+    const checking = useAuthGuard();
+    
+      if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
+
 
     const { data: resData, isError } = useQuery({
         queryKey: ["tables"],

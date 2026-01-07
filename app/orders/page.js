@@ -7,8 +7,16 @@ import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from 'react'; 
 import { getOrder } from "@/https";
 import { enqueueSnackbar } from "notistack";
-
+import useAuthGuard from "@/utils/useAuthGuard";
 export default function OrderPage() {
+
+   const checking = useAuthGuard();
+    
+      if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
+
   const [status, setStatus] = useState('all');
   useEffect(()=>{
     document.title="POS | Orders"

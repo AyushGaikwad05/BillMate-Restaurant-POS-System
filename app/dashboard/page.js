@@ -7,10 +7,15 @@ import RecentOrder from "@/components/dashboard/RecentOrder";
 import { act, useState } from "react";
 import Modal from "@/components/dashboard/Modal";
 import Navbar from "@/components/Navbar";
-
+import useAuthGuard from "@/utils/useAuthGuard";
 
 export default function Dashboard () {
-
+ const checking = useAuthGuard();
+    
+      if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
     const [isTableModalOpen,setIsTableModalOpen]=useState(false); 
     const [activeTab,setActiveTab]=useState("Metrics"); 
 

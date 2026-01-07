@@ -10,7 +10,12 @@ import RecentOrder from "@/home/RecentOrder";
 import PopularDishesh from "@/home/PopularDishes";
 import useAuthGuard from "@/utils/useAuthGuard";
 export default function Home() {
-  useAuthGuard();
+  const checking = useAuthGuard();
+
+  if (checking) {
+    return null; // ⛔ NOTHING renders
+    // OR return <Loader />
+  }
   return (
     <>
       <Navbar />

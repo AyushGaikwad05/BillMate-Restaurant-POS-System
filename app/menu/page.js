@@ -10,7 +10,14 @@ import CustomerInfo from "@/components/menu/CustomerInfo";
 import CartInfo from "@/components/menu/CartInfo";
 import Bills from "@/components/menu/Bills";
 import {useSelector} from "react-redux";
+import useAuthGuard from "@/utils/useAuthGuard";
 export default function MenuPage() {
+   const checking = useAuthGuard();
+    
+      if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
   const customerData= useSelector(state=>state.customer);
 
   return (
