@@ -14,6 +14,12 @@ export function middleware(req) {
   return NextResponse.next();
 }
 
+export function middleware(req) {
+  console.log("MIDDLEWARE COOKIES 👉", req.cookies.getAll());
+  return NextResponse.next();
+}
+
+
 export const config = {
   matcher: [
     "/",  
