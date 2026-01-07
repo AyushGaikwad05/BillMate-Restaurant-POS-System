@@ -8,7 +8,9 @@ import MiniCard from "@/home/MiniCard";
 import { BsCashCoin } from "react-icons/bs";
 import RecentOrder from "@/home/RecentOrder";
 import PopularDishesh from "@/home/PopularDishes";
+import useAuthGuard from "@/utils/useAuthGuard";
 export default function Home() {
+  useAuthGuard();
   return (
     <>
       <Navbar />
