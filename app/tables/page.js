@@ -13,10 +13,7 @@ export default function Tables() {
 
     const checking = useAuthGuard();
     
-      if (checking) {
-        return null; // ⛔ NOTHING renders
-        // OR return <Loader />
-      }
+     
 
 
     const { data: resData, isError } = useQuery({
@@ -34,6 +31,11 @@ export default function Tables() {
     console.log(resData);
 
     const [status, setStatus] = useState('all');
+
+     if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
     return (
         <section className="bg-[#1a1a1a] h-[100vh] flex flex-col">
             <Navbar />

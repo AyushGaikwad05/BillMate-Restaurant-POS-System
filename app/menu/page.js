@@ -14,12 +14,12 @@ import useAuthGuard from "@/utils/useAuthGuard";
 export default function MenuPage() {
    const checking = useAuthGuard();
     
-      if (checking) {
+  
+  const customerData= useSelector(state=>state.customer);
+    if (checking) {
         return null; // ⛔ NOTHING renders
         // OR return <Loader />
       }
-  const customerData= useSelector(state=>state.customer);
-
   return (
     <section className="bg-[#1a1a1a] h-[calc(100vh-5rem)] overflow-hidden flex flex-col">
       {/* Top Navbar */}

@@ -12,10 +12,7 @@ export default function OrderPage() {
 
    const checking = useAuthGuard();
     
-      if (checking) {
-        return null; // ⛔ NOTHING renders
-        // OR return <Loader />
-      }
+ 
 
   const [status, setStatus] = useState('all');
   useEffect(()=>{
@@ -34,7 +31,12 @@ export default function OrderPage() {
     enqueueSnackbar("Something Went Wrong!", { variant: "error" });
   }
 
+     if (checking) {
+        return null; // ⛔ NOTHING renders
+        // OR return <Loader />
+      }
 
+      
 
   return (
     <section className="bg-[#1a1a1a] h-[100vh] flex flex-col">
